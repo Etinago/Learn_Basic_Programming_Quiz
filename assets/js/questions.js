@@ -31,4 +31,52 @@ function loadQuestion() {
 
     question.textContent = javaQues[currentQuestion].que;
     opt.innerHTML = ""
+
+    for (var i = 0; i < javaQues[currentQuestion].ans.length; i++) {
+        var optiondiv = document.createElement("div");
+        var option = document.createElement("input");
+        var optionLabel = document.createElement("label");
+
+        option.type ="radio";
+        option.name = "answer";
+        option.value = i;
+
+        optionLabel.textContent = javaQues[currentQuestion].ans[i].text;
+
+        optiondiv.appendChild(option);
+        optiondiv.appendChild(optionLabel);
+        opt.appendChild(optiondiv);
+
+    }
+}
+
+loadQuestion ();
+
+function loadScore() {
+    var totalScore = document.getElementById("final-score")
+    totalScore.textContent = 'You score ${final-score} out of ${javaQues.length}'
+}
+
+function nextQuestion() {
+    if (currentQuestion < javaQues.length -1) {
+        currentQuestion++;
+        loadQuestion();
+    } else {
+        document.getElementById("choices").remove()
+        document.getElementById("questions").remove()
+        document.getElementById("start").remove()
+        loadScore();
+    }
+}
+
+function checkAns() {
+    var selectedAnswers = parseInt(document.querySelector('input[name="answer"]:checked').value);
+
+    if (javaQues[currentQuestion].ans[selectedAnswers].isCorrect) {
+        score++;
+        console.log("Correct")
+        nextQuestion()
+    } else {
+        nextQuestion()
+    }
 }
