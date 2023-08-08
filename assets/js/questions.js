@@ -21,3 +21,14 @@ var javaQues = [{
     ]
 
 }]
+
+let currentQuestion = 0;
+let score = 0;
+
+function loadQuestion() {
+    var question = document.getElementById("question-title")
+    var opt = document.getElementById("choices")
+
+    question.textContent = javaQues[currentQuestion].que;
+    opt.innerHTML = ""
+}
